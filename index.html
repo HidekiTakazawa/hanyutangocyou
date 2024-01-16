@@ -6,6 +6,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>中国語単語帳</title>
+  
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  
   <style>
     .header {
       position: fixed;
@@ -52,6 +55,16 @@
     .dataNone {
       display: none;
     }
+    .classGazou {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      text-decoration: none;
+      background-image: linear-gradient(to bottom,
+          rgba(255, 255, 0, 0.5),
+          rgba(0, 0, 255, 0.5));
+    }
+
 
 
 
@@ -102,7 +115,7 @@
 
         </select>
       </div>
-      
+
     </div>
   </div>
   <div id="main">
@@ -113,8 +126,8 @@
 
   </div>
 
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
 
   <!-- <script src="./get_post_gss.js"></script> -->
   <script>
@@ -122,12 +135,12 @@
     const END_POINT = "https://script.google.com/macros/s/AKfycby0_fLEBuY6YhbXGXnr0mX4icwnw2Q5m2Zu18XfBmAbn89SMGrzMCkH-zoLGKE-f-bG/exec";
 
     let sheetIndex;  // 現在処理中のシートのindex
-    
+
     const sheetSelector = document.getElementById("sheet-select");
-    
+
     let container = document.getElementById('container');
 
-    
+
     iniCSSSet();
 
     var tdOLD;//2023/04/27追加
@@ -152,7 +165,7 @@
 
       }
     }
-    
+
 
     getFromGAS();//起動時のデータ取得
 
@@ -173,7 +186,7 @@
         sheetDatas = JSON.parse(result);
 
         renderSheetDatas(sheetDatas);
-        
+
         iniCSSSet();
       }).fail((error) => {  // 失敗した時の処理
         alert('Error:' + JSON.stringify(error));
@@ -209,23 +222,43 @@
         table.appendChild(tbody);
         for (let j = 0; j < sheetDatas[i].length; j++) {
           tr = document.createElement('tr');
-          
-          for (let k = 0; k < sheetDatas[i][j].length - 1; k++) {
-            
+
+          for (let k = 0; k < sheetDatas[i][j].length; k++) {
+
             td = document.createElement('td');
             if (k === 0 || k === 3) {
-              
+
               td.textContent = sheetDatas[i][j][k];
               td.setAttribute('onclick', 'speakData(this)');
               td.setAttribute('class', 'clkBtn');
               td.style.backgroundColor = "#fffacd";
-              
+
+            } else if (k === 6 || k === 7) {
+
+              if (sheetDatas[i][j][k] === '画像' || sheetDatas[i][j][k] === '') {
+                td.textContent = sheetDatas[i][j][k];
+              } else {
+                let atag = document.createElement('a');
+                
+                let gazouURL0 = sheetDatas[i][j][k];
+                atag.setAttribute('href', gazouURL0);
+                
+                atag.setAttribute('href', gazouURL0);
+                atag.setAttribute('class', 'classGazou');
+                atag.setAttribute('target', '_blank');
+
+
+                td.appendChild(atag);
+
+
+
+              }
             } else {
               td.textContent = sheetDatas[i][j][k];
-              
+
 
             }
-            
+
             tr.appendChild(td);
 
           }
@@ -238,10 +271,10 @@
 
       }
     }
-    
+
     //
     function speakData(param1, param2) {
-     
+
       // if (param1 instanceof HTMLTableCellElement) {
       const td = param1;
       //2023/04/27 追加　背景色
@@ -263,7 +296,7 @@
       // }
 
     }
-    
+
     // イニシャル　CSS セット　　最初のシートをイニシャル画面にする。
     function iniCSSSet() {
       sheetIndex = 0;
