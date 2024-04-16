@@ -6,9 +6,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>中国語単語帳</title>
-  
+
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  
+
   <style>
     .header {
       position: fixed;
@@ -21,6 +21,25 @@
 
     }
 
+    .header2 {
+
+      display: flex;
+    }
+
+    .linkurl {
+      margin-left: auto;
+    }
+    #flash {
+      display: inline-block;
+      width: 170px;
+      height: 40px;
+      cursor: pointer;
+      background-color: skyblue;
+      text-decoration: none;
+      text-align: center;
+      line-height: 50px;
+      border-radius: 6px
+    }
     .dataContent {
       padding-top: 180px;
       display: block;
@@ -55,6 +74,7 @@
     .dataNone {
       display: none;
     }
+
     .classGazou {
       display: inline-block;
       width: 50px;
@@ -86,7 +106,15 @@
 
 <body>
   <div class="header">
-    <h1>中国語単語帳</h1>
+    <div class="header2">
+
+      <h1>中国語単語帳</h1>
+      <div class="linkurl">
+        <a id="flash" href="https://hidekitakazawa.github.io/roudokuCyugokugoTangocard/" target="_blank">朗読カード</a>
+        <!-- <a id="ikeda" href="index6.Chinese" target="_blank">使用手引書</a> -->
+
+      </div>
+    </div>
     <div class="divFlex">
       <div class="sheetSelect">
 
@@ -239,10 +267,10 @@
                 td.textContent = sheetDatas[i][j][k];
               } else {
                 let atag = document.createElement('a');
-                
+
                 let gazouURL0 = sheetDatas[i][j][k];
                 atag.setAttribute('href', gazouURL0);
-                
+
                 atag.setAttribute('href', gazouURL0);
                 atag.setAttribute('class', 'classGazou');
                 atag.setAttribute('target', '_blank');
