@@ -270,12 +270,18 @@
 
                 let gazouURL0 = sheetDatas[i][j][k];
                 atag.setAttribute('href', gazouURL0);
-
-                atag.setAttribute('href', gazouURL0);
                 atag.setAttribute('class', 'classGazou');
                 atag.setAttribute('target', '_blank');
 
+                let img = document.createElement('img');
 
+
+                img.setAttribute('src', gazouURL0);
+                img.setAttribute('class', 'classGazou');
+                // atag.setAttribute('target', '_blank');
+
+
+                atag.appendChild(img);
                 td.appendChild(atag);
 
 
